@@ -33,12 +33,11 @@
         "kwargs": {"embedding_size": 4, "num_items": 12, "thompson_sampling": "False"}
       },
       "bidder": {
-          "type": "EmpiricalShadedBidder",
+          "type": "LinearBidder",
           "kwargs": {
-            "gamma_sigma":  0.02,
-            "init_gamma": 0.75
+            "init_gamma": 0.7
           }
       }
   }],
-  "output_dir": "results/FP_test_disabling_TS/"
+  "output_dir": "results/FP_test_disabling_TS_linear_bid/"
 }
