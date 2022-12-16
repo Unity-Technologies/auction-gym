@@ -17,9 +17,8 @@
         "kwargs": {"embedding_size": 4, "num_items": 12}
       },
       "bidder": {
-          "type": "EmpiricalShadedBidder",
+          "type": "LinearBidder",
           "kwargs": {
-            "gamma_sigma":  0.02,
             "init_gamma": 0.75
           }
     }
@@ -35,7 +34,7 @@
       "bidder": {
           "type": "LinearBidder",
           "kwargs": {
-            "init_gamma": 0.7
+            "init_gamma": 0.75
           }
       }
   }],
