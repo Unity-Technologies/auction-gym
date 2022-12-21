@@ -35,6 +35,18 @@ class TruthfulBidder(Bidder):
         return value * estimated_CTR
 
 
+class LinearBidder(Bidder):
+    """ A bidder with linear constant multiplier """
+    def __init__(self, rng, init_gamma=0.7):
+        super(LinearBidder, self).__init__(rng)
+        self.gamma = init_gamma
+        self.gammas = []
+
+    def bid(self, value, context, estimated_CTR):
+        self.gammas.append(self.gamma)
+        return self.gamma * value * estimated_CTR
+
+
 class EmpiricalShadedBidder(Bidder):
     """ A bidder that learns a single bidding factor gamma from past data """
 
