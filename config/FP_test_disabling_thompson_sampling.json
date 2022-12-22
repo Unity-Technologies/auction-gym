@@ -1,7 +1,7 @@
 {
   "random_seed": 1,
-  "num_runs": 2,
-  "num_iter" : 50,
+  "num_runs": 50,
+  "num_iter" : 10,
   "rounds_per_iter": 10000,
   "num_participants_per_round": 2,
   "embedding_size": 5,
@@ -10,7 +10,7 @@
   "allocation": "FirstPrice",
   "agents": [ {
     "name": "with_TS_updates",
-    "num_copies": 3,
+    "num_copies": 2,
     "num_items": 12,
       "allocator": {
         "type": "PyTorchLogisticRegressionAllocator",
@@ -25,7 +25,7 @@
   },
   {
     "name": "without_TS_updates",
-    "num_copies": 3,
+    "num_copies": 2,
     "num_items": 12,
       "allocator": {
         "type": "PyTorchLogisticRegressionAllocator",
@@ -38,5 +38,5 @@
           }
       }
   }],
-  "output_dir": "results/FP_test_disabling_TS_linear_bid/"
+  "output_dir": "results/FP_test_disabling_TS/"
 }
