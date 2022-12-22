@@ -8,6 +8,7 @@ import seaborn as sns
 from collections import defaultdict
 from copy import deepcopy
 from tqdm import tqdm
+from sklearn.preprocessing import normalize
 
 from Agent import Agent
 from AuctionAllocation import * # FirstPrice, SecondPrice
@@ -61,15 +62,20 @@ def parse_config(path):
         agent_config['name']: rng.normal(0.0, embedding_var, size=(agent_config['num_items'], embedding_size))
         for agent_config in agent_configs
     }
+    # normalize each item to norm 1, so that expected values dont differ between bidders
+    for agent, items in agents2items.items():
+        agents2items[agent] = normalize(items, axis=1)
 
+    # set agent item values to constant 1.0 instead of random
+    # - this makes agents more comparable to each other
     agents2item_values = {
-        agent_config['name']: rng.lognormal(0.1, 0.2, agent_config['num_items'])
+        agent_config['name']: np.ones(agent_config['num_items'])
         for agent_config in agent_configs
     }
 
-    # Add intercepts to embeddings (Uniformly in [-4.5, -1.5], this gives nicer distributions for P(click))
+    # Add intercepts to embeddings, this gives nicer distributions for P(click))
     for agent, items in agents2items.items():
-        agents2items[agent] = np.hstack((items, - 3.0 - 1.0 * rng.random((items.shape[0], 1))))
+        agents2items[agent] = np.hstack((items, -2.5 - 1.0 * np.zeros((items.shape[0], 1))))
 
     return rng, config, agent_configs, agents2items, agents2item_values, num_runs, max_slots, embedding_size, embedding_var, obs_embedding_size
 

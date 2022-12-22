@@ -1,0 +1,42 @@
+{
+  "random_seed": 1,
+  "num_runs": 50,
+  "num_iter" : 10,
+  "rounds_per_iter": 10000,
+  "num_participants_per_round": 2,
+  "embedding_size": 5,
+  "embedding_var": 1.0,
+  "obs_embedding_size": 4,
+  "allocation": "FirstPrice",
+  "agents": [ {
+    "name": "with_TS_updates",
+    "num_copies": 2,
+    "num_items": 12,
+      "allocator": {
+        "type": "PyTorchLogisticRegressionAllocator",
+        "kwargs": {"embedding_size": 4, "num_items": 12}
+      },
+      "bidder": {
+          "type": "LinearBidder",
+          "kwargs": {
+            "init_gamma": 0.75
+          }
+    }
+  },
+  {
+    "name": "without_TS_updates",
+    "num_copies": 2,
+    "num_items": 12,
+      "allocator": {
+        "type": "PyTorchLogisticRegressionAllocator",
+        "kwargs": {"embedding_size": 4, "num_items": 12, "thompson_sampling": "False"}
+      },
+      "bidder": {
+          "type": "LinearBidder",
+          "kwargs": {
+            "init_gamma": 0.75
+          }
+      }
+  }],
+  "output_dir": "results/FP_test_disabling_TS/"
+}
